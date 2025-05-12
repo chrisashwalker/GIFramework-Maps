@@ -27,7 +27,6 @@ import Annotate from "./Annotate/Annotate";
 import { register } from "ol/proj/proj4";
 import proj4 from "proj4";
 import { FeatureQuery } from "./FeatureQuery/FeatureQuery";
-import AnnotationStylePanel from "./Panels/AnnotationStylePanel";
 import { Search } from "./Search";
 import { Streetview } from "./Streetview";
 import { VersionViewModel } from "./Interfaces/VersionViewModel";
@@ -432,6 +431,7 @@ export class GIFWMap {
     measureControl.init();
     infoControl.init();
     geolocationControl.init();
+    annotateControl.init();
 
     //init search
     const search = new Search(
@@ -448,29 +448,6 @@ export class GIFWMap {
       const streetview = new Streetview(this.config.googleMapsAPIKey);
       streetview.init(contextMenu);
     }
-
-    const annotationStylePanel = new AnnotationStylePanel(
-      "#annotation-style-panel",
-    );
-    const annotationStyleIcon = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF" class="bi bi-brush-fill" viewBox="0 0 16 16">
-          <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04z"/>
-        </svg>
-    `;
-    const annotationStyleSidebar = new gifwSidebar.Sidebar(
-      "annotation-style-panel",
-      "Modify annotation style",
-      "Change the appearance of your annotations",
-      `data:image/svg+xml; charset=utf8, ${encodeURIComponent(
-        annotationStyleIcon,
-      )}`,
-      3,
-      annotationStylePanel,
-    );
-    annotationStylePanel.setGIFWMapInstance(this);
-    annotationStylePanel.setListeners(annotationStyleSidebar);
-
-    annotateControl.init();
 
     //add scale bar changer
     this.attachScaleBarSwitcherListener(scalelineType);

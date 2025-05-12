@@ -16,6 +16,7 @@ import { VersionViewModel } from "./Interfaces/VersionViewModel";
 import { Tour } from "./Tour";
 import { Alert, AlertSeverity, AlertType, extractParamFromHash, addFullScreenLoader, removeFullScreenLoader } from "./Util";
 import { SidebarPanel } from "./Interfaces/SidebarPanel";
+import AnnotationStylePanel from "./Panels/AnnotationStylePanel";
 
 /*variables passed from index.cshtml. Use sparingly*/
 declare let gifw_appinsights_key: string;
@@ -128,6 +129,21 @@ document.addEventListener("DOMContentLoaded", () => {
         );
         sidebars.push(legendSidebar);
 
+        const annotationStylePanel = new AnnotationStylePanel(
+          "#annotation-style-panel",
+        );
+        panels.push(annotationStylePanel);
+        
+        const annotationStyleSidebar = new GIFWSidebar.Sidebar(
+          "annotation-style-panel",
+          "Modify annotation style",
+          "Change the appearance of your annotations",
+          `${document.location.protocol}//${config.appRoot}img/panel-icons/modify-icon.svg`,
+          4,
+          annotationStylePanel,
+        );
+        sidebars.push(annotationStyleSidebar);
+
         if (mode !== 'embed') {
           const sharePanel = new SharePanel("#share");
           panels.push(sharePanel);
@@ -137,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Share",
             "Share a link to the map",
             `${document.location.protocol}//${config.appRoot}img/panel-icons/share-icon.svg`,
-            4,
+            5,
             sharePanel,
             );
           sidebars.push(shareSidebar);
@@ -150,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Export/Print",
             "Export and Print your map",
             `${document.location.protocol}//${config.appRoot}img/panel-icons/print-icon.svg`,
-            5,
+            6,
             printPanel,
           );
           sidebars.push(printSidebar);

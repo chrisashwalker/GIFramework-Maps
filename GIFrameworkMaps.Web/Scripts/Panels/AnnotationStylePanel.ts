@@ -63,6 +63,7 @@ export default class AnnotationStylePanel implements SidebarPanel {
     }
   }
 
+  // TODO - call me maybe from app.ts?
   public setListeners(sidebar: Sidebar) {
     document
       .getElementById(this.gifwMapInstance.id)
